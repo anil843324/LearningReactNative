@@ -1,7 +1,6 @@
 import { View, Text, TextInput, Image } from 'react-native';
 import React from 'react';
 
-
 const CustomTextInput = ({ value, onChangeText, placeholder, icon, type }) => {
     return (
         <View
@@ -26,13 +25,14 @@ const CustomTextInput = ({ value, onChangeText, placeholder, icon, type }) => {
             />
 
             <TextInput
+                placeholderTextColor="black"
                 secureTextEntry={type ? true : false}
                 style={{
-                    color: 'black',
-                    backgroundColor: 'red',
-                    marginLeft: 10
+                    marginLeft: 10,
+                    color: 'black'
                 }}
-                placeholder={placeholder} />
+                placeholder={placeholder}
+            />
         </View>
     );
 };
