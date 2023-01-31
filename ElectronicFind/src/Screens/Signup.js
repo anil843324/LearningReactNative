@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import CustomTextInput from '../components/CustomTextInput';
 import CommonButton from '../components/CommonButton';
 import { useNavigation } from '@react-navigation/native';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+let isValid = true;
 const Signup = () => {
     const navigation = useNavigation();
 
@@ -13,50 +14,71 @@ const Signup = () => {
     const [name, setName] = useState('');
     const [number, setNumber] = useState('');
 
-
     const [badPassword, setBadPassword] = useState(false);
     const [badEmail, setBadEmail] = useState(false);
     const [badNumber, setBadNumber] = useState(false);
     const [badName, setBadName] = useState(false);
     const [badConfirmPassword, setBadConfirmPassword] = useState(false);
+    const [buttonDisabled, setButtonDisabled] = useState(false);
 
-    const validate = () => {
-        if (email === '') {
-            setBadEmail(true);
-        } else {
-            setBadEmail(false)
-        }
-        if (password === '') {
-            setBadPassword(true);
-        } else {
-            setBadPassword(false)
-        }
+    const signup = () => {
+        setButtonDisabled(true);
+
         if (name === '') {
             setBadName(true);
+            setButtonDisabled(false);
         } else {
-            setBadName(false)
-        }
-        if (number === '') {
-            setBadNumber(true);
-        } else {
-            setBadNumber(false)
-        }
-        if (confirmPassword === '') {
-            setBadConfirmPassword(true);
-        } else {
-            setBadConfirmPassword(false)
-        }
-        if (confirmPassword !== password) {
-            setBadConfirmPassword(true)
-        } else {
-            setBadConfirmPassword(false)
+            setBadName(false);
+            if (email === '') {
+                setBadEmail(true);
+                setButtonDisabled(false);
+            } else {
+                setBadEmail(false);
+
+                if (number === '') {
+                    setBadNumber(true);
+                    setButtonDisabled(false);
+                } else if (number.length < 10) {
+                    setBadNumber(true);
+                    setButtonDisabled(false);
+                } else {
+                    setBadNumber(false);
+
+                    if (password === '') {
+                        setBadPassword(true);
+                        setButtonDisabled(false);
+                    } else {
+                        setBadPassword(false);
+
+                        if (confirmPassword === '') {
+                            setBadConfirmPassword(true);
+                            setButtonDisabled(false);
+                        } else {
+                            setBadConfirmPassword(false);
+
+                            if (confirmPassword !== password) {
+                                setBadConfirmPassword(true);
+                                setButtonDisabled(false);
+                            } else {
+                                setBadConfirmPassword(false);
+                                saveData();
+                            }
+                        }
+                    }
+                }
+            }
         }
 
     };
 
 
-
-
+    const saveData = async () => {
+        await AsyncStorage.setItem('EMAIL', email);
+        await AsyncStorage.setItem('PASSWORD', password);
+        await AsyncStorage.setItem('NAME', name);
+        await AsyncStorage.setItem('PHONE', number);
+        navigation.goBack('Login');
+    };
 
     return (
         <ScrollView
@@ -96,7 +118,6 @@ const Signup = () => {
                     icon={require('../images/user.png')}
                     value={name}
                     onChangeText={txt => setName(txt)}
-
                 />
                 {badName === true && (
                     <Text style={{ marginTop: 10, marginLeft: 30, color: 'red' }}>
@@ -132,10 +153,8 @@ const Signup = () => {
                 <CustomTextInput
                     placeholder={'Enter Password'}
                     icon={require('../images/password.png')}
-
                     value={password}
                     onChangeText={txt => setPassword(txt)}
-
                 />
                 {badPassword === true && (
                     <Text style={{ marginTop: 10, marginLeft: 30, color: 'red' }}>
@@ -146,10 +165,8 @@ const Signup = () => {
                 <CustomTextInput
                     placeholder={'Enter Confirm Password '}
                     icon={require('../images/password.png')}
-
                     value={confirmPassword}
                     onChangeText={txt => setConfirmPassword(txt)}
-
                 />
                 {badConfirmPassword === true && (
                     <Text style={{ marginTop: 10, marginLeft: 30, color: 'red' }}>
@@ -158,12 +175,13 @@ const Signup = () => {
                 )}
 
                 <CommonButton
-                    bgColor={'black'}
+                    bgColor={buttonDisabled ? '#8e8e83' : 'black'}
                     textColor={'white'}
                     title={'Sign Up'}
                     onPress={() => {
-                        validate();
+                        signup();
                     }}
+                    disabled={buttonDisabled}
                 />
 
                 <Text

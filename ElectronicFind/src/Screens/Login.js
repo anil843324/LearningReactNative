@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import CustomTextInput from '../components/CustomTextInput';
 import CommonButton from '../components/CommonButton';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = () => {
     const navigation = useNavigation();
@@ -13,18 +14,56 @@ const Login = () => {
     const [badPassword, setBadPassword] = useState(false);
     const [badEmail, setBadEmail] = useState(false);
 
-    const validate = () => {
+    // const validate = () => {
+    //     if (email === '') {
+    //         setBadEmail(true);
+    //     } else {
+    //         setBadEmail(false)
+    //     }
+    //     if (password === '') {
+    //         setBadPassword(true);
+    //     } else {
+    //         setBadPassword(false)
+    //     }
+
+
+
+    // };
+
+
+    const login = () => {
+
         if (email === '') {
-            setBadEmail(true);
+            setBadEmail(true)
         } else {
-            setBadEmail(false)
+            setBadEmail(false);
+            if (password === '') {
+                setBadPassword(true)
+            } else {
+                setBadPassword(false)
+                getData();
+            }
         }
-        if (password === '') {
-            setBadPassword(true);
+
+
+    }
+
+    const getData = async () => {
+
+
+        const mEmail = await AsyncStorage.getItem('EMAIL');
+        const mPassword = await AsyncStorage.getItem('PASSWORD');
+
+        console.log(mPassword)
+        if (mEmail === email && password === mPassword) {
+            navigation.navigate('Home')
         } else {
-            setBadPassword(false)
+            alert('Please Enter Valid Email and Password')
         }
-    };
+
+
+
+    }
 
     return (
         <View
@@ -83,7 +122,7 @@ const Login = () => {
                 textColor={'white'}
                 title={'Login'}
                 onPress={() => {
-                    validate();
+                    login();
                 }}
             />
 
