@@ -1,11 +1,62 @@
 import { View, Text, Image, TextInput, ScrollView } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import CustomTextInput from '../components/CustomTextInput';
 import CommonButton from '../components/CommonButton';
 import { useNavigation } from '@react-navigation/native';
 
 const Signup = () => {
     const navigation = useNavigation();
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [name, setName] = useState('');
+    const [number, setNumber] = useState('');
+
+
+    const [badPassword, setBadPassword] = useState(false);
+    const [badEmail, setBadEmail] = useState(false);
+    const [badNumber, setBadNumber] = useState(false);
+    const [badName, setBadName] = useState(false);
+    const [badConfirmPassword, setBadConfirmPassword] = useState(false);
+
+    const validate = () => {
+        if (email === '') {
+            setBadEmail(true);
+        } else {
+            setBadEmail(false)
+        }
+        if (password === '') {
+            setBadPassword(true);
+        } else {
+            setBadPassword(false)
+        }
+        if (name === '') {
+            setBadName(true);
+        } else {
+            setBadName(false)
+        }
+        if (number === '') {
+            setBadNumber(true);
+        } else {
+            setBadNumber(false)
+        }
+        if (confirmPassword === '') {
+            setBadConfirmPassword(true);
+        } else {
+            setBadConfirmPassword(false)
+        }
+        if (confirmPassword !== password) {
+            setBadConfirmPassword(true)
+        } else {
+            setBadConfirmPassword(false)
+        }
+
+    };
+
+
+
+
 
     return (
         <ScrollView
@@ -43,29 +94,76 @@ const Signup = () => {
                 <CustomTextInput
                     placeholder={'Enter Name'}
                     icon={require('../images/user.png')}
+                    value={name}
+                    onChangeText={txt => setName(txt)}
+
                 />
+                {badName === true && (
+                    <Text style={{ marginTop: 10, marginLeft: 30, color: 'red' }}>
+                        Please Enter Name
+                    </Text>
+                )}
 
                 <CustomTextInput
                     placeholder={'Enter Email Id'}
                     icon={require('../images/email.png')}
+                    value={email}
+                    onChangeText={txt => setEmail(txt)}
                 />
+                {badEmail === true && (
+                    <Text style={{ marginTop: 10, marginLeft: 30, color: 'red' }}>
+                        Please Enter Email Id
+                    </Text>
+                )}
 
                 <CustomTextInput
                     placeholder={'Enter Mobile'}
                     icon={require('../images/number.png')}
+                    value={number}
+                    keyboardType={'number-pad'}
+                    onChangeText={txt => setNumber(txt)}
                 />
+                {badNumber === true && (
+                    <Text style={{ marginTop: 10, marginLeft: 30, color: 'red' }}>
+                        Please Enter Number
+                    </Text>
+                )}
 
                 <CustomTextInput
                     placeholder={'Enter Password'}
                     icon={require('../images/password.png')}
-                    type={'password'}
+
+                    value={password}
+                    onChangeText={txt => setPassword(txt)}
+
                 />
+                {badPassword === true && (
+                    <Text style={{ marginTop: 10, marginLeft: 30, color: 'red' }}>
+                        Please Enter Password
+                    </Text>
+                )}
+
+                <CustomTextInput
+                    placeholder={'Enter Confirm Password '}
+                    icon={require('../images/password.png')}
+
+                    value={confirmPassword}
+                    onChangeText={txt => setConfirmPassword(txt)}
+
+                />
+                {badConfirmPassword === true && (
+                    <Text style={{ marginTop: 10, marginLeft: 30, color: 'red' }}>
+                        Please Enter Correct Password
+                    </Text>
+                )}
 
                 <CommonButton
                     bgColor={'black'}
                     textColor={'white'}
                     title={'Sign Up'}
-                    onPress={() => { }}
+                    onPress={() => {
+                        validate();
+                    }}
                 />
 
                 <Text

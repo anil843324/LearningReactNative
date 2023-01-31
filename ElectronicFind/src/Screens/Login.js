@@ -1,20 +1,30 @@
 import { View, Text, Image, TextInput } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import CustomTextInput from '../components/CustomTextInput';
 import CommonButton from '../components/CommonButton';
 import { useNavigation } from '@react-navigation/native';
 
 const Login = () => {
-
     const navigation = useNavigation();
 
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
+    const [badPassword, setBadPassword] = useState(false);
+    const [badEmail, setBadEmail] = useState(false);
 
-
-
-
-
-
+    const validate = () => {
+        if (email === '') {
+            setBadEmail(true);
+        } else {
+            setBadEmail(false)
+        }
+        if (password === '') {
+            setBadPassword(true);
+        } else {
+            setBadPassword(false)
+        }
+    };
 
     return (
         <View
@@ -46,21 +56,34 @@ const Login = () => {
             <CustomTextInput
                 placeholder={'Enter Email Id'}
                 icon={require('../images/email.png')}
+                value={email}
+                onChangeText={txt => setEmail(txt)}
             />
+            {badEmail === true && (
+                <Text style={{ marginTop: 10, marginLeft: 30, color: 'red' }}>
+                    Please Enter Email Id
+                </Text>
+            )}
+
             <CustomTextInput
                 placeholder={'Enter Password'}
                 icon={require('../images/password.png')}
                 type={'password'}
+                value={password}
+                onChangeText={txt => setPassword(txt)}
             />
-
-
+            {badPassword === true && (
+                <Text style={{ marginTop: 10, marginLeft: 30, color: 'red' }}>
+                    Please Enter Password
+                </Text>
+            )}
 
             <CommonButton
                 bgColor={'black'}
                 textColor={'white'}
                 title={'Login'}
                 onPress={() => {
-
+                    validate();
                 }}
             />
 
@@ -70,15 +93,13 @@ const Login = () => {
                     fontSize: 18,
                     alignSelf: 'center',
                     marginTop: 20,
-                    textDecorationLine: 'underline'
+                    textDecorationLine: 'underline',
                 }}
                 onPress={() => {
-                    navigation.navigate('Signup')
-                }}
-            >Create New Account</Text>
-
-
-
+                    navigation.navigate('Signup');
+                }}>
+                Create New Account
+            </Text>
         </View>
     );
 };
