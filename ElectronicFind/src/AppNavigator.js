@@ -5,6 +5,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import Splash from './Screens/Splash';
 import Login from './Screens/Login';
 import Signup from './Screens/Signup';
+import ForgotPassword from './Screens/ForgotPassword';
+import ChangePassword from './Screens/ChangePassword';
 
 const Stack = createStackNavigator();
 
@@ -26,6 +28,17 @@ const AppNavigator = () => {
                     name='Signup'
                     component={Signup}
                     options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name='Forgot Password'
+                    component={ForgotPassword}
+                    options={{ headerShown: true }}
+                />
+
+                <Stack.Screen
+                    name='Change Password'
+                    component={ChangePassword}
+                    options={{ headerShown: true }}
                 />
 
             </Stack.Navigator>

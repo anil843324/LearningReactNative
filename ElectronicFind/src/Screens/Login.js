@@ -87,19 +87,62 @@ const Login = () => {
                 }}
             />
 
-            <Text
+            <View
+                style={{
+                    marginTop: 30,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    paddingLeft: 15,
+                    paddingRight: 15,
+
+                    justifyContent: 'space-between'
+                }}
+            >
+                <Text
+                    style={{
+                        color: 'black',
+                        fontSize: 18,
+                        alignSelf: 'center',
+
+                        textDecorationLine: 'underline',
+                    }}
+                    onPress={() => {
+                        navigation.navigate('Signup');
+                    }}>
+                    Create New Account
+                </Text>
+
+                <Text
+                    style={{
+                        color: 'black',
+                        fontSize: 18,
+                        alignSelf: 'center',
+
+                        textDecorationLine: 'underline',
+                    }}
+                    onPress={() => {
+                        navigation.navigate('Forgot Password');
+                    }}>
+                    Forgot Password
+                </Text>
+
+            </View>
+
+            {/* <Text
                 style={{
                     color: 'black',
                     fontSize: 18,
                     alignSelf: 'center',
-                    marginTop: 20,
+
                     textDecorationLine: 'underline',
                 }}
                 onPress={() => {
-                    navigation.navigate('Signup');
+                    navigation.navigate('Change Password');
                 }}>
-                Create New Account
-            </Text>
+                Change Password
+            </Text> */}
+
+
         </View>
     );
 };
