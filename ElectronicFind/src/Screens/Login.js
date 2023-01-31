@@ -4,6 +4,7 @@ import CustomTextInput from '../components/CustomTextInput';
 import CommonButton from '../components/CommonButton';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Loader from '../components/Loader';
 
 const Login = () => {
     const navigation = useNavigation();
@@ -13,57 +14,45 @@ const Login = () => {
 
     const [badPassword, setBadPassword] = useState(false);
     const [badEmail, setBadEmail] = useState(false);
-
-    // const validate = () => {
-    //     if (email === '') {
-    //         setBadEmail(true);
-    //     } else {
-    //         setBadEmail(false)
-    //     }
-    //     if (password === '') {
-    //         setBadPassword(true);
-    //     } else {
-    //         setBadPassword(false)
-    //     }
-
-
-
-    // };
-
+    const [modalVisible, setModalVisible] = useState(false);
 
     const login = () => {
+        setModalVisible(true);
 
         if (email === '') {
-            setBadEmail(true)
+            setModalVisible(false);
+            setBadEmail(true);
         } else {
             setBadEmail(false);
             if (password === '') {
-                setBadPassword(true)
+                setModalVisible(false);
+                setBadPassword(true);
             } else {
-                setBadPassword(false)
-                getData();
+
+                setTimeout(() => {
+                    setBadPassword(false);
+                    getData();
+                }, 2000)
+
+
+
             }
         }
-
-
-    }
+    };
 
     const getData = async () => {
-
-
         const mEmail = await AsyncStorage.getItem('EMAIL');
         const mPassword = await AsyncStorage.getItem('PASSWORD');
 
-        console.log(mPassword)
+        console.log(mPassword);
         if (mEmail === email && password === mPassword) {
-            navigation.navigate('Home')
+            setModalVisible(false);
+            navigation.navigate('Home');
         } else {
-            alert('Please Enter Valid Email and Password')
+            setModalVisible(false);
+            alert('Please Enter Valid Email and Password');
         }
-
-
-
-    }
+    };
 
     return (
         <View
@@ -134,9 +123,8 @@ const Login = () => {
                     paddingLeft: 15,
                     paddingRight: 15,
 
-                    justifyContent: 'space-between'
-                }}
-            >
+                    justifyContent: 'space-between',
+                }}>
                 <Text
                     style={{
                         color: 'black',
@@ -164,24 +152,9 @@ const Login = () => {
                     }}>
                     Forgot Password
                 </Text>
-
             </View>
 
-            {/* <Text
-                style={{
-                    color: 'black',
-                    fontSize: 18,
-                    alignSelf: 'center',
-
-                    textDecorationLine: 'underline',
-                }}
-                onPress={() => {
-                    navigation.navigate('Change Password');
-                }}>
-                Change Password
-            </Text> */}
-
-
+            <Loader modalVisible={modalVisible} setModalVisible={setModalVisible} />
         </View>
     );
 };
