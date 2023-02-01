@@ -17,7 +17,7 @@ export const products = {
                 {
                     name: 'SAMSUNG Galaxy F13',
                     price: 11999,
-                    image: require('./images/f23.webp'),
+                    image: require('./images/f13.webp'),
                     company: 'Samsung',
                     Description: "Enjoy seamless connectivity and an uninterrupted movie marathon with the impressive Samsung Galaxy F13 that is designed specifically to impress the entertainment fanatics. This smartphone features a terrific 16.62 cm (6.6) FHD+ LCD Display that can effortlessly blow your mind with its incredible performance. Furthermore, this phone boasts a 50 MP Triple Camera setup that allows you to capture awesomeness with a gentle tap. Moreover, the Samsung Galaxy F13 sports up to 8 GB of RAM and features an innovative RAM plus technology that taps into the phone’s internal storage to elevate its performance.",
                     Highlights: ['4 GB RAM | 64 GB ROM | Expandable Upto 1 TB', '16.76 cm (6.6 inch) Full HD+ Display', '50MP + 8MP + 2MP | 8MP Front Camera', '6000 mAh Lithium Ion Battery', 'Exynos 850 Processor'],
@@ -44,7 +44,7 @@ export const products = {
                 {
                     name: 'Lava Blaze 5G',
                     price: 10999,
-                    image: require('./images/f23.webp'),
+                    image: require('./images/lava.webp'),
                     company: 'Samsung',
                     Description: "Bring home the efficient Samsung Lava Blaze 5G mobile phone that comes with a myriad of impeccable features, including fast operation, versatility, and flawless gaming experience. This phone comes with a 16.25 (6.4) Full HD+ Infinity-U Display with a refresh rate of up to 120 Hz so that you can enjoy smooth multitasking and vibrant visuals. Driven by a Snapdragon 750G processor, this mobile phone turns your gaming session intense and productive. Thanks to the Auto Data Switching feature of this phone, you can switch to a secondary SIM network when the primary SIM loses its network. Moreover, the integrated Power Cool technology of this phone allows your phone to stay cool well even when used for long hours.",
                     Highlights: ['4 GB RAM | 128 GB ROM | Expandable Upto 1 TB', '16.76 cm (6.6 inch) Full HD+ Display', '50MP + 8MP + 2MP | 8MP Front Camera', '5000 mAh Lithium Ion Battery', 'Qualcomm Snapdragon 750G Processor'],
