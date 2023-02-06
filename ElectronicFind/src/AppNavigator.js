@@ -8,6 +8,11 @@ import Signup from './Screens/Signup';
 import ForgotPassword from './Screens/ForgotPassword';
 import ChangePassword from './Screens/ChangePassword';
 import Home from './Screens/Home';
+import MyAddress from './Screens/MyAddress';
+import AddAddress from './Screens/AddAddress';
+import CheckOut from './Screens/CheckOut';
+import OrderSuccess from './Screens/OrderSuccess';
+import Orders from './Screens/Orders';
 
 const Stack = createStackNavigator();
 
@@ -46,6 +51,35 @@ const AppNavigator = () => {
                     component={Home}
                     options={{ headerShown: false }}
                 />
+                <Stack.Screen
+                    name='My Address'
+                    component={MyAddress}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name='Add Address'
+                    component={AddAddress}
+                    options={{ headerShown: false }}
+                />
+
+                <Stack.Screen
+                    name='Checkout'
+                    component={CheckOut}
+                    options={{ headerShown: false }}
+                />
+
+                <Stack.Screen
+                    name='OrderSuccess'
+                    component={OrderSuccess}
+                    options={{ headerShown: false }}
+                />
+
+                <Stack.Screen
+                    name='Orders'
+                    component={Orders}
+                    options={{ headerShown: false }}
+                />
+
 
             </Stack.Navigator>
         </NavigationContainer>

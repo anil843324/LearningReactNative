@@ -3,11 +3,13 @@ import React, { useState } from 'react';
 import CustomTextInput from '../components/CustomTextInput';
 import CommonButton from '../components/CommonButton';
 import { useNavigation } from '@react-navigation/native';
+import Loader from '../components/Loader';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ChangePassword = () => {
     const navigation = useNavigation();
 
-
+    const [modalVisible, setModalVisible] = useState(false);
     const [newPassword, setNewPassword] = useState('');
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
 
@@ -23,23 +25,45 @@ const ChangePassword = () => {
     };
 
     const validate = () => {
+
+
         if (newPassword === '') {
+
             setBadNewPassword(true);
         } else {
-            setBadNewPassword(false)
-        }
-        if (confirmNewPassword === '') {
-            setBadConfirmNewPassword(true);
-        } else {
-            setBadConfirmNewPassword(false);
+            setBadNewPassword(false);
+            if (confirmNewPassword === '') {
+
+                setBadConfirmNewPassword(true);
+            } else {
+
+                setTimeout(() => {
+                    setBadConfirmNewPassword(false);
+                    setData();
+                }, 1000)
+
+
+
+            }
         }
 
-        if (newPassword !== confirmNewPassword) {
-            showToast();
-        } else {
+    };
+
+    const setData = async () => {
+
+
+
+
+        if (newPassword === confirmNewPassword) {
+
+            await AsyncStorage.setItem('PASSWORD', newPassword);
+            setConfirmNewPassword('');
+            setNewPassword('')
             successToast();
-        }
+        } else {
 
+            showToast()
+        }
     };
 
     return (

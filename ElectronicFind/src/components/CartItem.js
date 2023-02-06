@@ -1,12 +1,21 @@
 import { View, Text, Image } from 'react-native';
 import React from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import {
+    addItemToCart,
+    addToWishlist,
+    removeFromCart,
+} from '../redux/actions/Actions';
+import { useDispatch, useSelector } from 'react-redux';
+const CartItem = ({ item, index, isWishList }) => {
+    //onAddToCart
 
-const MyProductItem = ({ item }) => {
+    const dispatch = useDispatch();
+
     return (
         <View
             style={{
-                width: 250,
+                width: '90%',
                 height: 280,
                 borderRadius: 10,
                 elevation: 5,
@@ -54,48 +63,43 @@ const MyProductItem = ({ item }) => {
 
                 <TouchableOpacity
                     style={{
-                        borderWidth: 1,
+                        width: 40,
+                        height: 40,
+                        backgroundColor: '#fff',
+                        borderRadius: 20,
+                        elevation: 5,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                    onPress={() => {
+                        dispatch(addToWishlist(item));
+                    }}>
+                    <Image
+                        style={{
+                            width: 24, height: 24,
+                            tintColor: '#000'
+                        }}
+                        source={require('../images/heart.png')}
+                    />
+                </TouchableOpacity>
 
+                <TouchableOpacity
+                    style={{
+                        borderWidth: 1,
                         borderRadius: 10,
                         paddingLeft: 10,
                         paddingRight: 10,
                         paddingTop: 7,
                         paddingBottom: 7,
+                    }}
+                    onPress={() => {
+                        dispatch(removeFromCart(item.id));
                     }}>
-                    <Text style={{ color: 'black', fontWeight: '600' }}>Add to cart</Text>
+                    <Text style={{ color: 'black', fontWeight: '600' }}>Remove Item</Text>
                 </TouchableOpacity>
             </View>
-
-
-
-
-
-            {/* 
-            <TouchableOpacity
-                style={{
-                    width: 40,
-                    height: 40,
-                    backgroundColor: '#fff',
-                    borderRadius: 20,
-                    elevation: 5,
-                    position: 'relative',
-                    top: 0,
-                    right: 10,
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}
-            >
-                <Image
-                    style={{ width: 24, height: 24 }}
-                    source={require('../images/heart.png')}
-                />
-
-            </TouchableOpacity> */}
-
-
-
         </View>
     );
 };
 
-export default MyProductItem;
+export default CartItem;

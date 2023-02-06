@@ -6,6 +6,7 @@ export const products = {
             category: 'Mobile',
             data: [
                 {
+                    id: 1,
                     name: 'SAMSUNG Galaxy F23 5G',
                     price: 16999,
                     image: require('./images/f23.webp'),
@@ -15,6 +16,7 @@ export const products = {
                     rating: 4.5,
                 },
                 {
+                    id: 2,
                     name: 'SAMSUNG Galaxy F13',
                     price: 11999,
                     image: require('./images/f13.webp'),
@@ -24,6 +26,7 @@ export const products = {
                     rating: 4.1,
                 },
                 {
+                    id: 3,
                     name: 'APPLE iPhone 14',
                     price: 72999,
                     image: require('./images/iphone-14.webp'),
@@ -33,6 +36,7 @@ export const products = {
                     rating: 4.7,
                 },
                 {
+                    id: 4,
                     name: 'APPLE iPhone 14 Pro Max',
                     price: 132999,
                     image: require('./images/iphone-14promax.webp'),
@@ -42,6 +46,7 @@ export const products = {
                     rating: 4.5,
                 },
                 {
+                    id: 5,
                     name: 'Lava Blaze 5G',
                     price: 10999,
                     image: require('./images/lava.webp'),
@@ -56,6 +61,7 @@ export const products = {
             category: 'Laptop',
             data: [
                 {
+                    id: 6,
                     name: 'APPLE 2022 MacBook AIR M2',
                     price: 131990,
                     image: require('./images/m-air-m2.webp'),
@@ -67,6 +73,7 @@ export const products = {
                     rating: 4.5,
                 },
                 {
+                    id: 7,
                     name: 'APPLE 2022 MacBook AIR M1',
                     price: 131990,
                     image: require('./images/m-air-m2.webp'),
@@ -78,6 +85,7 @@ export const products = {
                     rating: 4.5,
                 },
                 {
+                    id: 8,
                     name: 'SAMSUNG Core i7 12th Gen',
                     price: 72990,
                     image: require('./images/samsung-laptop1.webp'),
@@ -89,6 +97,7 @@ export const products = {
                     rating: 4.5,
                 },
                 {
+                    id: 9,
                     name: 'SAMSUNG Galaxy Book Go Snapdragon 7c Gen 2',
                     price: 32999,
                     image: require('./images/samsung-laptop.webp'),
@@ -105,6 +114,7 @@ export const products = {
             category: 'Earphone',
             data: [
                 {
+                    id: 10,
                     name: 'boAt Bassheads 100 Wired Headset',
                     price: 399,
                     image: require('./images/boat1.webp'),
@@ -119,6 +129,7 @@ export const products = {
                     rating: 4.5,
                 },
                 {
+                    id: 11,
                     name: 'boAt Airdops 161 with ASAP Charge',
                     price: 1399,
                     image: require('./images/boat2.webp'),
@@ -134,6 +145,7 @@ export const products = {
                     rating: 4.1,
                 },
                 {
+                    id: 12,
                     name: 'APPLE Airpods Pro',
                     price: 18999,
                     image: require('./images/ipod.webp'),
@@ -149,6 +161,7 @@ export const products = {
                     rating: 4.7,
                 },
                 {
+                    id: 13,
                     name: 'Apple AirPods(2nd gen)',
                     price: 1199,
                     image: require('./images/ipod2.webp'),
@@ -170,6 +183,7 @@ export const products = {
             category: 'Smart Watch',
             data: [
                 {
+                    id: 14,
                     name: 'APPLE Watch SE GPS + Cellular',
                     price: 37900,
                     image: require('./images/APPLE-Watch-SE-GPS.webp'),
@@ -182,6 +196,7 @@ export const products = {
                     rating: 4.4,
                 },
                 {
+                    id: 15,
                     name: 'APPLE Watch Series7',
                     price: 53999,
                     image: require('./images/watch-8.webp'),
@@ -194,6 +209,7 @@ export const products = {
                     rating: 4.8,
                 },
                 {
+                    id: 16,
                     name: 'SAMSUNG Watch 5',
                     price: 36999,
                     image: require('./images/s-5.webp'),
@@ -203,6 +219,7 @@ export const products = {
                     rating: 4.3,
                 },
                 {
+                    id: 17,
                     name: 'SAMSUNG Watch 4',
                     price: 36999,
                     image: require('./images/ss-5.webp'),
@@ -212,6 +229,7 @@ export const products = {
                     rating: 4.3,
                 },
                 {
+                    id: 18,
                     name: 'Fire-Boltt Almighty',
                     price: 36999,
                     image: require('./images/firebold-watch.webp'),

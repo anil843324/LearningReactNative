@@ -8,9 +8,16 @@ import Profile from '../bottomScreen/Profile';
 import Wishlist from '../bottomScreen/Wishlist';
 import Search from '../bottomScreen/Search';
 import Cart from '../bottomScreen/Cart';
+import { useSelector } from 'react-redux';
 
 const Home = () => {
     const [selectedTab, setSelectedTab] = useState(0);
+
+    const cartData = useSelector(state => state.reducers.cartRedux)
+    const cartData1 = useSelector(state => state.reducers)
+    const wishListData = useSelector(state => state.reducers2)
+
+    // console.log('cart data', cartData1)
 
     return (
         <View
@@ -109,6 +116,32 @@ const Home = () => {
                                 tintColor: '#fff',
                             }}
                         />
+
+                        <View style={{
+                            width: 20,
+                            height: 20,
+                            backgroundColor: 'red',
+                            borderRadius: 10,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            position: 'absolute',
+                            top: 5,
+                            right: 5,
+
+                        }}>
+                            <Text
+                                style={{
+                                    color: "#fff",
+                                    fontWeight: '600',
+
+                                }}
+                            >
+                                {cartData.length}
+
+                            </Text>
+
+
+                        </View>
                     </TouchableOpacity>
                 </View>
 
@@ -130,6 +163,30 @@ const Home = () => {
                             tintColor: selectedTab === 3 ? '#000' : '#8e8e8e',
                         }}
                     />
+                    <View style={{
+                        width: 20,
+                        height: 20,
+                        backgroundColor: 'red',
+                        borderRadius: 10,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        position: 'absolute',
+                        top: 15,
+                        right: 1,
+
+                    }}>
+                        <Text
+                            style={{
+                                color: "#fff",
+                                fontWeight: '600',
+
+                            }}
+                        >
+                            {wishListData.length}
+
+                        </Text>
+
+                    </View>
                 </TouchableOpacity>
 
                 <TouchableOpacity

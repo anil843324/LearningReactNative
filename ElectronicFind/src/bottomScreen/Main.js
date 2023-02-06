@@ -4,7 +4,8 @@ import Header from '../components/Header';
 
 import { products } from '../Products';
 import { FlatList } from 'react-native-gesture-handler';
-import MyProductItem from '../components/MyProductItem';
+import { useDispatch, useSelector } from 'react-redux'
+import ProductList from '../components/ProductList';
 
 const Main = () => {
     const [categoryList, setCategoryList] = useState([]);
@@ -12,6 +13,8 @@ const Main = () => {
     const [mobileList, setMobileList] = useState([]);
     const [earphoneList, setEarphoneList] = useState([]);
     const [watchList, setWatchList] = useState([]);
+
+
 
     useEffect(() => {
         let tempCategory = [];
@@ -25,6 +28,8 @@ const Main = () => {
         setEarphoneList(products.category[2].data);
         setWatchList(products.category[3].data);
     }, []);
+
+
 
     return (
         <ScrollView
@@ -94,9 +99,10 @@ const Main = () => {
                         horizontal
                         showsHorizontalScrollIndicator={false}
                         data={mobileList}
+                        keyExtractor={(item, index) => item.id}
                         renderItem={({ item, index }) => {
                             return (
-                                <MyProductItem item={item} />
+                                <ProductList item={item} key={item.id} />
                             );
                         }}
                     />
@@ -117,10 +123,11 @@ const Main = () => {
                     <FlatList
                         horizontal
                         showsHorizontalScrollIndicator={false}
+                        keyExtractor={(item, index) => item.id}
                         data={laptopList}
                         renderItem={({ item, index }) => {
                             return (
-                                <MyProductItem item={item} />
+                                <ProductList item={item} key={item.id} />
                             );
                         }}
                     />
@@ -141,10 +148,11 @@ const Main = () => {
                     <FlatList
                         horizontal
                         showsHorizontalScrollIndicator={false}
+                        keyExtractor={(item, index) => item.id}
                         data={earphoneList}
                         renderItem={({ item, index }) => {
                             return (
-                                <MyProductItem item={item} />
+                                <ProductList item={item} key={item.id} />
                             );
                         }}
                     />
@@ -165,9 +173,12 @@ const Main = () => {
                         horizontal
                         showsHorizontalScrollIndicator={false}
                         data={watchList}
+                        keyExtractor={(item, index) => item.id}
                         renderItem={({ item, index }) => {
                             return (
-                                <MyProductItem item={item} />
+                                <ProductList item={item}
+
+                                />
                             );
                         }}
                     />

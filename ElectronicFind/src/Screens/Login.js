@@ -44,7 +44,7 @@ const Login = () => {
         const mEmail = await AsyncStorage.getItem('EMAIL');
         const mPassword = await AsyncStorage.getItem('PASSWORD');
 
-        console.log(mPassword);
+
         if (mEmail === email && password === mPassword) {
             setModalVisible(false);
             navigation.navigate('Home');
