@@ -37,9 +37,9 @@ const App = () => {
 
           {
             maps.map((row, rowIndex) => (
-              <View style={styles.row}>
+              <View style={styles.row} key={rowIndex}>
                 {row.map((cel, columnIndex) => <Pressable
-
+                  key={columnIndex}
                   onPress={() => OnPress(rowIndex, columnIndex)}
                   style={styles.cell}>
 
@@ -110,11 +110,7 @@ const styles = StyleSheet.create({
   }
   ,
   circle: {
-    // position: 'absolute',
-    // left: 2 * 105,
-    // top: 2 * 105,
-    // width: 75,
-    // height: 75,
+
     flex: 1,
     borderRadius: 50,
     alignItems: 'center',
