@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 import Cell from '../components/Cell';
 
-import bg from '../../images/bg.jpeg';
+import bg from '../images/bg.jpeg';
 
 const emptyMap = [
     ['', '', ''], //1st row

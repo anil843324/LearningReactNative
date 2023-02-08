@@ -38,7 +38,7 @@ const Splash = () => {
                         borderRadius: 50,
                         alignSelf: 'center'
                     }}
-                    source={require('../../images/logo.png')}
+                    source={require('../images/logo.png')}
                 />
 
             </View>
