@@ -24,10 +24,10 @@ const Home = () => {
     const [gameMode, setGameMode] = useState('BOT_MEDIUM'); // LOCAL, BOT_EASY , BOT_MEDIUM
 
     useEffect(() => {
-        if (currentTurn === 'o') {
+        if (currentTurn === 'o' && gameMode !== "LOCAL") {
             botTurn();
         }
-    }, [currentTurn]);
+    }, [currentTurn, gameMode]);
 
 
     useEffect(() => {
@@ -171,36 +171,43 @@ const Home = () => {
 
         let choseOption;
 
-        // Attack
 
-        possiblePositions.forEach(possiblePosition => {
-            const mapCopy = copyArray(maps);
-
-            mapCopy[possiblePosition.row][possiblePosition.col] = 'o';
-
-            const winner = getWinner(mapCopy);
-            if (winner === 'o') {
-                // Attack that position
-                choseOption = possiblePosition;
-            }
-        });
+        if (gameMode === "BOT_MEDIUM") {
 
 
-        if (!choseOption) {
-            //Defend
 
-            //Check if the opponent WINS if it takes one of the possible Position
+            // Attack
+
             possiblePositions.forEach(possiblePosition => {
                 const mapCopy = copyArray(maps);
 
-                mapCopy[possiblePosition.row][possiblePosition.col] = 'x';
+                mapCopy[possiblePosition.row][possiblePosition.col] = 'o';
 
                 const winner = getWinner(mapCopy);
-                if (winner === 'x') {
-                    // Defend that position
+                if (winner === 'o') {
+                    // Attack that position
                     choseOption = possiblePosition;
                 }
             });
+
+
+            if (!choseOption) {
+                //Defend
+
+                //Check if the opponent WINS if it takes one of the possible Position
+                possiblePositions.forEach(possiblePosition => {
+                    const mapCopy = copyArray(maps);
+
+                    mapCopy[possiblePosition.row][possiblePosition.col] = 'x';
+
+                    const winner = getWinner(mapCopy);
+                    if (winner === 'x') {
+                        // Defend that position
+                        choseOption = possiblePosition;
+                    }
+                });
+
+            }
 
         }
 
