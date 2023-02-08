@@ -3,11 +3,9 @@ import {
   Text,
   StyleSheet,
   ImageBackground,
-  Pressable,
   Alert,
 } from 'react-native';
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
 
 import Cell from './src/components/Cell';
 
@@ -24,8 +22,15 @@ const App = () => {
 
   const [currentTurn, setCurrentTurn] = useState('x');
 
-  const OnPress = (rowIndex, colIndex) => {
+  const [gameMode, setGameMode] = useState('BOT_MEDIUM'); // LOCAL, BOT_EASY , BOT_MEDIUM
 
+  useEffect(() => {
+    if (currentTurn === 'o') {
+      botTurn();
+    }
+  }, [currentTurn]);
+
+  const OnPress = (rowIndex, colIndex) => {
     if (maps[rowIndex][colIndex] !== '') {
       Alert.alert('Position already occupied');
       return;
@@ -144,6 +149,28 @@ const App = () => {
     setCurrentTurn('x');
   };
 
+  const botTurn = () => {
+    // collect all possible options
+    const possiblePositions = [];
+
+    maps.forEach((row, rowIndex) => {
+      row.forEach((cell, colIndex) => {
+        if (cell === '') {
+          possiblePositions.push({ row: rowIndex, col: colIndex });
+        }
+      });
+    });
+
+    // choose the best option
+
+    const choseOption =
+      possiblePositions[Math.floor(Math.random() * possiblePositions.length)];
+
+    if (choseOption) {
+      OnPress(choseOption.row, choseOption.col);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <ImageBackground source={bg} style={styles.bg} resizeMode="contain">
@@ -160,18 +187,47 @@ const App = () => {
           {maps.map((row, rowIndex) => (
             <View style={styles.row} key={rowIndex}>
               {row.map((cel, columnIndex) => (
-
                 <Cell
                   key={columnIndex + rowIndex}
                   cel={cel}
                   onPress={() => OnPress(rowIndex, columnIndex)}
-
-
                 />
-
               ))}
             </View>
           ))}
+        </View>
+
+        <View style={styles.buttons}>
+          <Text
+            onPress={() => setGameMode('LOCAL')}
+            style={[
+              styles.button,
+              { backgroundColor: gameMode === 'LOCAL' ? '#4F5686' : '#191F24' },
+            ]}>
+            Local
+          </Text>
+          <Text
+            onPress={() => setGameMode('BOT_EASY')}
+            style={[
+              styles.button,
+              {
+                backgroundColor:
+                  gameMode === 'BOT_EASY' ? '#4F5686' : '#191F24',
+              },
+            ]}>
+            Easy Bot
+          </Text>
+          <Text
+            onPress={() => setGameMode('BOT_MEDIUM')}
+            style={[
+              styles.button,
+              {
+                backgroundColor:
+                  gameMode === 'BOT_MEDIUM' ? '#4F5686' : '#191F24',
+              },
+            ]}>
+            Medium Bot
+          </Text>
         </View>
       </ImageBackground>
     </View>
@@ -203,9 +259,20 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
   },
-
-
-
+  buttons: {
+    position: 'absolute',
+    bottom: 50,
+    flexDirection: 'row',
+  },
+  button: {
+    color: 'white',
+    margin: 10,
+    fontSize: 16,
+    backgroundColor: '#191F24',
+    padding: 10,
+    paddingHorizontal: 15,
+    borderRadius: 10,
+  },
 });
 
 /*
