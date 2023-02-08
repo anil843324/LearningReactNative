@@ -1,10 +1,4 @@
-import {
-    View,
-    Text,
-    StyleSheet,
-    ImageBackground,
-    Alert,
-} from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, Alert } from 'react-native';
 import React, { useState, useEffect } from 'react';
 
 import Cell from '../components/Cell';
@@ -16,6 +10,11 @@ const emptyMap = [
     ['', '', ''], // 2nd row
     ['', '', ''], // 3rd row
 ];
+
+const copyArray = original => {
+    const copy = JSON.parse(JSON.stringify(original));
+    return copy;
+};
 
 const Home = () => {
     const [maps, setMaps] = useState(emptyMap);
@@ -30,6 +29,19 @@ const Home = () => {
         }
     }, [currentTurn]);
 
+
+    useEffect(() => {
+
+        const winner = getWinner(maps);
+
+        if (winner) {
+            gameWon(winner);
+        } else {
+            checkTieStage();
+        }
+
+    }, [maps])
+
     const OnPress = (rowIndex, colIndex) => {
         if (maps[rowIndex][colIndex] !== '') {
             Alert.alert('Position already occupied');
@@ -43,19 +55,15 @@ const Home = () => {
         });
 
         setCurrentTurn(currentTurn === 'x' ? 'o' : 'x');
-        const winner = getWinner();
-        if (winner) {
-            gameWon(winner);
-        } else {
-            checkTieStage();
-        }
+
+
     };
 
-    const getWinner = () => {
+    const getWinner = winnerMap => {
         //check row
         for (let i = 0; i < 3; i++) {
-            const isRowXWinning = maps[i].every(cell => cell === 'x');
-            const isRowOWinning = maps[i].every(cell => cell === 'o');
+            const isRowXWinning = winnerMap[i].every(cell => cell === 'x');
+            const isRowOWinning = winnerMap[i].every(cell => cell === 'o');
             if (isRowXWinning) {
                 return 'x';
             }
@@ -70,10 +78,10 @@ const Home = () => {
             let isColumnOWinner = true;
 
             for (let row = 0; row < 3; row++) {
-                if (maps[row][col] !== 'x') {
+                if (winnerMap[row][col] !== 'x') {
                     isColumnXWinner = false;
                 }
-                if (maps[row][col] !== 'o') {
+                if (winnerMap[row][col] !== 'o') {
                     isColumnOWinner = false;
                 }
             }
@@ -94,19 +102,19 @@ const Home = () => {
         let isDiagonal2XWining = true;
 
         for (let i = 0; i < 3; i++) {
-            if (maps[i][i] !== 'o') {
+            if (winnerMap[i][i] !== 'o') {
                 isDiagonal1OWining = false;
             }
 
-            if (maps[i][i] !== 'x') {
+            if (winnerMap[i][i] !== 'x') {
                 isDiagonal1XWining = false;
             }
 
-            if (maps[i][2 - i] !== 'o') {
+            if (winnerMap[i][2 - i] !== 'o') {
                 isDiagonal2OWining = false;
             }
 
-            if (maps[i][2 - i] !== 'x') {
+            if (winnerMap[i][2 - i] !== 'x') {
                 isDiagonal2XWining = false;
             }
         }
@@ -161,10 +169,46 @@ const Home = () => {
             });
         });
 
-        // choose the best option
+        let choseOption;
 
-        const choseOption =
-            possiblePositions[Math.floor(Math.random() * possiblePositions.length)];
+        // Attack
+
+        possiblePositions.forEach(possiblePosition => {
+            const mapCopy = copyArray(maps);
+
+            mapCopy[possiblePosition.row][possiblePosition.col] = 'o';
+
+            const winner = getWinner(mapCopy);
+            if (winner === 'o') {
+                // Attack that position
+                choseOption = possiblePosition;
+            }
+        });
+
+
+        if (!choseOption) {
+            //Defend
+
+            //Check if the opponent WINS if it takes one of the possible Position
+            possiblePositions.forEach(possiblePosition => {
+                const mapCopy = copyArray(maps);
+
+                mapCopy[possiblePosition.row][possiblePosition.col] = 'x';
+
+                const winner = getWinner(mapCopy);
+                if (winner === 'x') {
+                    // Defend that position
+                    choseOption = possiblePosition;
+                }
+            });
+
+        }
+
+        // choose random
+        if (!choseOption) {
+            choseOption =
+                possiblePositions[Math.floor(Math.random() * possiblePositions.length)];
+        }
 
         if (choseOption) {
             OnPress(choseOption.row, choseOption.col);
@@ -274,5 +318,3 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
 });
-
-
