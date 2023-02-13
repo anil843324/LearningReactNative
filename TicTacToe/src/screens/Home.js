@@ -1,6 +1,8 @@
 import { View, Text, StyleSheet, ImageBackground, Alert } from 'react-native';
 import React, { useState, useEffect } from 'react';
 
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+
 import Cell from '../components/Cell';
 
 import bg from '../images/bg.jpeg';
@@ -280,6 +282,18 @@ const Home = () => {
                         Medium Bot
                     </Text>
                 </View>
+                {/* banner add */}
+                <View style={styles.bannerAd}>
+                    <BannerAd
+
+                        size={BannerAdSize.BANNER}
+                        //     unitId={TestIds.BANNER}
+                        unitId={"ca-app-pub-9519567116090559/6119634298"}
+                    />
+
+                </View>
+
+
             </ImageBackground>
         </View>
     );
@@ -312,7 +326,7 @@ const styles = StyleSheet.create({
     },
     buttons: {
         position: 'absolute',
-        bottom: 50,
+        bottom: 70,
         flexDirection: 'row',
     },
     button: {
@@ -324,4 +338,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         borderRadius: 10,
     },
+    bannerAd: {
+        marginTop: 400,
+    }
 });
