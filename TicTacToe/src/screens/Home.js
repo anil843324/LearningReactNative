@@ -26,14 +26,12 @@ const Home = () => {
     const [gameMode, setGameMode] = useState('BOT_MEDIUM'); // LOCAL, BOT_EASY , BOT_MEDIUM
 
     useEffect(() => {
-        if (currentTurn === 'o' && gameMode !== "LOCAL") {
+        if (currentTurn === 'o' && gameMode !== 'LOCAL') {
             botTurn();
         }
     }, [currentTurn, gameMode]);
 
-
     useEffect(() => {
-
         const winner = getWinner(maps);
 
         if (winner) {
@@ -41,8 +39,7 @@ const Home = () => {
         } else {
             checkTieStage();
         }
-
-    }, [maps])
+    }, [maps]);
 
     const OnPress = (rowIndex, colIndex) => {
         if (maps[rowIndex][colIndex] !== '') {
@@ -57,8 +54,6 @@ const Home = () => {
         });
 
         setCurrentTurn(currentTurn === 'x' ? 'o' : 'x');
-
-
     };
 
     const getWinner = winnerMap => {
@@ -132,22 +127,36 @@ const Home = () => {
 
     const checkTieStage = () => {
         if (!maps.some(row => row.some(cell => cell === ''))) {
-            Alert.alert(`It's a tie`, `tie 🤦‍♂️`, [
+            Alert.alert(
+                `It's a tie`,
+                `tie 🤦‍♂️`,
+                [
+                    {
+                        text: 'Restart',
+                        onPress: resetGame,
+                    },
+                ],
                 {
-                    text: 'Restart',
-                    onPress: resetGame,
+                    position: 'bottom',
                 },
-            ]);
+            );
         }
     };
 
     const gameWon = player => {
-        Alert.alert(`Huraaay`, `Player ${player} won 🎆🎆`, [
+        Alert.alert(
+            `Huraaay`,
+            `Player ${player} won 🎆🎆`,
+            [
+                {
+                    text: 'Restart',
+                    onPress: resetGame,
+                },
+            ],
             {
-                text: 'Restart',
-                onPress: resetGame,
+                position: 'bottom',
             },
-        ]);
+        );
     };
 
     const resetGame = () => {
@@ -173,11 +182,7 @@ const Home = () => {
 
         let choseOption;
 
-
-        if (gameMode === "BOT_MEDIUM") {
-
-
-
+        if (gameMode === 'BOT_MEDIUM') {
             // Attack
 
             possiblePositions.forEach(possiblePosition => {
@@ -191,7 +196,6 @@ const Home = () => {
                     choseOption = possiblePosition;
                 }
             });
-
 
             if (!choseOption) {
                 //Defend
@@ -208,9 +212,7 @@ const Home = () => {
                         choseOption = possiblePosition;
                     }
                 });
-
             }
-
         }
 
         // choose random
@@ -285,15 +287,11 @@ const Home = () => {
                 {/* banner add */}
                 <View style={styles.bannerAd}>
                     <BannerAd
-
                         size={BannerAdSize.BANNER}
-                        //     unitId={TestIds.BANNER}
+                        // unitId={TestIds.BANNER}
                         unitId={"ca-app-pub-9519567116090559/6119634298"}
                     />
-
                 </View>
-
-
             </ImageBackground>
         </View>
     );
@@ -326,7 +324,7 @@ const styles = StyleSheet.create({
     },
     buttons: {
         position: 'absolute',
-        bottom: 70,
+        bottom: 30,
         flexDirection: 'row',
     },
     button: {
@@ -339,6 +337,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     bannerAd: {
-        marginTop: 400,
-    }
+        position: 'absolute',
+        bottom: 100,
+    },
 });
