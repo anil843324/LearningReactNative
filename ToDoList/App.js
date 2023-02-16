@@ -7,6 +7,10 @@ import Splash from './src/screens/Splash';
 import ToDo from './src/screens/ToDo';
 import Done from './src/screens/Done';
 import Task from './src/screens/Task';
+import { Provider } from 'react-redux';
+import { store } from './src/redux/store';
+
+
 
 const Stack = createStackNavigator();
 
@@ -51,27 +55,29 @@ function HomeTab() {
 
 const App = () => {
     return (
-        <NavigationContainer>
-            <Stack.Navigator
-            >
-                <Stack.Screen
-                    name="Splash"
-                    component={Splash}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen name="My Tasks" component={HomeTab}
+        <Provider store={store}>
+            <NavigationContainer>
+                <Stack.Navigator
+                >
+                    <Stack.Screen
+                        name="Splash"
+                        component={Splash}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen name="My Tasks" component={HomeTab}
 
-                    options={{ headerShown: true }}
+                        options={{ headerShown: true }}
 
-                />
+                    />
 
-                <Stack.Screen name="Task" component={Task}
+                    <Stack.Screen name="Task" component={Task}
 
-                    options={{ headerShown: true }}
+                        options={{ headerShown: true }}
 
-                />
-            </Stack.Navigator>
-        </NavigationContainer>
+                    />
+                </Stack.Navigator>
+            </NavigationContainer>
+        </Provider>
     );
 };
 
