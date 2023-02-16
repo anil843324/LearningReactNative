@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Splash from './src/screens/Splash';
 import ToDo from './src/screens/ToDo';
 import Done from './src/screens/Done';
+import Task from './src/screens/Task';
 
 const Stack = createStackNavigator();
 
@@ -58,7 +59,17 @@ const App = () => {
                     component={Splash}
                     options={{ headerShown: false }}
                 />
-                <Stack.Screen name="My Tasks" component={HomeTab} />
+                <Stack.Screen name="My Tasks" component={HomeTab}
+
+                    options={{ headerShown: true }}
+
+                />
+
+                <Stack.Screen name="Task" component={Task}
+
+                    options={{ headerShown: true }}
+
+                />
             </Stack.Navigator>
         </NavigationContainer>
     );
