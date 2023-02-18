@@ -137,7 +137,7 @@ const Home = () => {
                     },
                 ],
                 {
-                    position: 'bottom',
+                    position: 'top',
                 },
             );
         }
@@ -154,7 +154,7 @@ const Home = () => {
                 },
             ],
             {
-                position: 'bottom',
+                position: 'top',
             },
         );
     };
@@ -288,8 +288,8 @@ const Home = () => {
                 <View style={styles.bannerAd}>
                     <BannerAd
                         size={BannerAdSize.BANNER}
-                        // unitId={TestIds.BANNER}
-                        unitId={"ca-app-pub-9519567116090559/6119634298"}
+                        unitId={TestIds.BANNER}
+                    // unitId={"ca-app-pub-9519567116090559/6119634298"}
                     />
                 </View>
             </ImageBackground>

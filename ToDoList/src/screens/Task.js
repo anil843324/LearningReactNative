@@ -1,14 +1,63 @@
-import { View, Text, StyleSheet, TextInput } from 'react-native';
-import React, { useState } from 'react';
+import { View, Text, StyleSheet, TextInput, Alert } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import CustomButton from '../utils/CustomButton';
+import { useDispatch, useSelector } from 'react-redux';
+import { setTasks } from '../redux/actions';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 
 const Task = () => {
-    const [title, setTitle] = useState();
+    const navigation = useNavigation();
+    const { tasks, taskID } = useSelector(state => state.taskReducer);
+    const dispatch = useDispatch();
 
-    const [desc, setDesc] = useState();
+    const [title, setTitle] = useState('');
+    const [desc, setDesc] = useState('');
 
-    const dataSave = () => {
-        console.log(title);
+    useEffect(() => {
+        getTask();
+    }, []);
+
+    const getTask = () => {
+        const Task = tasks.find(task => task.ID === taskID);
+
+        if (Task) {
+            setTitle(Task.Title);
+            setTitle(Task.Desc);
+        }
+    };
+
+    const setTask = () => {
+        if (title.length == 0) {
+            Alert.alert('Warning!', 'Please write your task title.');
+        }
+
+        try {
+            let Task = {
+                ID: taskID,
+                Title: title,
+                Desc: desc,
+            };
+            let newTasks = [];
+            const index = tasks.findIndex(task => task.ID === taskID);
+
+            if (index > -1) {
+                newTasks = [...tasks];
+                newTasks[index] = Task;
+            } else {
+                newTasks = [...tasks, Task];
+            }
+
+            AsyncStorage.setItem('Tasks', JSON.stringify(newTasks))
+                .then(() => {
+                    dispatch(setTasks(newTasks));
+                    Alert.alert('Success!', 'Task saved successfully.');
+                    navigation.goBack();
+                })
+                .catch(err => console.log(err));
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
@@ -34,7 +83,7 @@ const Task = () => {
                 textColor={'white'}
                 title={'Save Task'}
                 onPress={() => {
-                    dataSave();
+                    setTask();
                 }}
             />
         </View>

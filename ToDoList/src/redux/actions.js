@@ -6,12 +6,12 @@ export const setTasks = tasks => dispatch => {
     dispatch({
         type: SET_TASK,
         payload: tasks,
-    }); g
+    });
 };
 
 export const setTaskId = tasksId => dispatch => {
     dispatch({
         type: SET_TASK_ID,
         payload: tasksId,
-    }); g
+    });
 };
