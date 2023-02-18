@@ -1,10 +1,11 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList } from 'react-native';
+import { View, Text, StyleSheet, Alert, TouchableOpacity, Image, FlatList } from 'react-native';
 import React, { useEffect } from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { setTaskId, setTasks } from '../redux/actions';
+
 
 const ToDo = () => {
     const navigation = useNavigation();
@@ -28,6 +29,21 @@ const ToDo = () => {
             .catch(err => console.log(err));
     };
 
+    // delete item
+
+    const deleteTask = (id) => {
+
+        const filteredTasks = tasks.filter(task => task.ID !== id);
+        AsyncStorage.setItem('Tasks', JSON.stringify(filteredTasks))
+            .then(() => {
+                dispatch(setTasks(filteredTasks));
+                Alert.alert('Success!', 'Task removed successfully.')
+            })
+            .catch(err => console.log(err))
+
+
+    }
+
     return (
         <View style={styles.body}>
 
@@ -42,14 +58,30 @@ const ToDo = () => {
                             navigation.navigate('Task')
                         }}
                     >
+                        <View style={styles.item_row}>
 
-                        <Text style={styles.title}
-                            numberOfLines={1}
-                        > {item.Title} </Text>
-                        <Text style={styles.desc}
-                            numberOfLines={1}
-                        > {item.Desc} </Text>
 
+                            <View style={styles.item_body}>
+                                <Text style={styles.title}
+                                    numberOfLines={1}
+                                > {item.Title} </Text>
+                                <Text style={styles.desc}
+                                    numberOfLines={1}
+                                > {item.Desc} </Text>
+                            </View>
+
+                            <TouchableOpacity
+                                style={styles.delete}
+
+                                onPress={() => { deleteTask(item.ID) }}
+                            >
+                                <Image
+                                    style={styles.deleteIcon}
+                                    source={require('../../assets/delete.png')}
+                                />
+                            </TouchableOpacity>
+
+                        </View>
                     </TouchableOpacity>
                 )}
                 keyExtractor={(item, index) => index.toString()}
@@ -88,6 +120,24 @@ const styles = StyleSheet.create({
         width: 20,
         tintColor: 'white',
     },
+    item_row: {
+        flexDirection: 'row',
+        alignItems: 'center',
+
+    },
+    item_body: {
+        flex: 1,
+    },
+    delete: {
+        width: 50,
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    deleteIcon: {
+        width: 25,
+        height: 25,
+    },
     item: {
         marginHorizontal: 10,
         marginVertical: 7,
@@ -107,7 +157,8 @@ const styles = StyleSheet.create({
         color: '#999999',
         fontSize: 18,
         margin: 5,
-    }
+    },
+
 });
 
 export default ToDo;
