@@ -78,6 +78,7 @@ const ToDo = () => {
                                 value={item.Done}
                                 onValueChange={(newValue) => { checkTask(item.ID, newValue) }}
                                 style={styles.checkbox}
+                                tintColors={{ true: 'red', false: 'green' }}
                             />
 
                             <View style={styles.item_body}>
