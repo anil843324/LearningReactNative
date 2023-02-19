@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         marginVertical: 7,
         paddingHorizontal: 10,
-        backgroundColor: '#ffffff',
+        backgroundColor: '#f0e9e6',
         justifyContent: 'center',
         borderRadius: 10,
         elevation: 5,

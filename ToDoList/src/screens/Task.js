@@ -77,21 +77,11 @@ const Task = () => {
         }
     };
 
-    const setTaskAlarm = () => {
-
-
-
-    }
-
-
-
-
-
-
+    const setTaskAlarm = () => { };
 
     return (
         <View style={styles.body}>
-            <Modal
+            {/* <Modal
                 animationType="slide"
                 transparent={true}
                 visible={showBellModal}
@@ -102,7 +92,7 @@ const Task = () => {
                 <View style={styles.centered_view}>
                     <View style={styles.bell_modal}>
                         <View style={styles.bell_body}>
-                            <Text style={styles.textM} >Remind me After</Text>
+                            <Text style={styles.textM}>Remind me After</Text>
                             <TextInput
                                 style={styles.bell_input}
                                 keyboardType={'numeric'}
@@ -110,35 +100,29 @@ const Task = () => {
                                 value={bellTime}
                                 onChangeText={text => setBellTime(text)}
                             />
-                            <Text style={styles.textM} >minute(s)</Text>
-
+                            <Text style={styles.textM}>minute(s)</Text>
                         </View>
 
                         <View style={styles.bell_buttons}>
                             <TouchableOpacity
                                 onPress={() => {
-                                    setShowBellModal(false)
+                                    setShowBellModal(false);
                                 }}
-                                style={styles.bell_cancel_button}
-                            >
-                                <Text style={styles.textM} >Cancel</Text>
+                                style={styles.bell_cancel_button}>
+                                <Text style={styles.textM}>Cancel</Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity
                                 onPress={() => {
-                                    setShowBellModal(false)
+                                    setShowBellModal(false);
                                 }}
-                                style={styles.bell_ok_button}
-                            >
-                                <Text style={styles.textM} >OK</Text>
+                                style={styles.bell_ok_button}>
+                                <Text style={styles.textM}>OK</Text>
                             </TouchableOpacity>
-
                         </View>
-
-
                     </View>
                 </View>
-            </Modal>
+            </Modal> */}
 
             <TextInput
                 value={title}
@@ -155,8 +139,12 @@ const Task = () => {
                 style={styles.input}
                 onChangeText={text => setDesc(text)}
             />
-            <View style={styles.extra_row}>
-                <TouchableOpacity style={styles.extra_button} onPress={() => { setShowBellModal(true) }}>
+            {/* <View style={styles.extra_row}>
+                <TouchableOpacity
+                    style={styles.extra_button}
+                    onPress={() => {
+                        setShowBellModal(true);
+                    }}>
                     <Image
                         style={{
                             height: 26,
@@ -165,7 +153,7 @@ const Task = () => {
                         source={require('../../assets/bell.png')}
                     />
                 </TouchableOpacity>
-            </View>
+            </View> */}
 
             <View style={styles.checkboxContainer}>
                 <CheckBox
@@ -238,9 +226,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#00000099',
         justifyContent: 'center',
-        alignItems: 'center'
-
-
+        alignItems: 'center',
     },
     bell_modal: {
         width: 300,
@@ -248,19 +234,16 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
         borderRadius: 20,
         borderWidth: 1,
-        borderColor: '#000000'
+        borderColor: '#000000',
     },
     bell_body: {
         height: 150,
         justifyContent: 'center',
         alignItems: 'center',
-
-    }
-    ,
+    },
     bell_buttons: {
         flexDirection: 'row',
         height: 50,
-
     },
     bell_input: {
         width: 50,
@@ -275,7 +258,6 @@ const styles = StyleSheet.create({
     },
     textM: {
         color: 'black',
-
     },
     bell_ok_button: {
         flex: 1,
@@ -292,7 +274,7 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 20,
         justifyContent: 'center',
         alignItems: 'center',
-    }
+    },
 });
 
 export default Task;

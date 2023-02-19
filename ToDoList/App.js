@@ -25,22 +25,24 @@ function HomeTab() {
                 component={ToDo}
                 options={{
                     headerShown: false,
-
                     tabBarIcon: ({ color, size }) => (
                         <Image
-
                             source={require('./assets/to-do-list.png')}
                             style={{ width: 24, height: 24, tintColor: color, }}
-
                         />
                     ),
+
+
                 }}
+
+
             />
             <Tab.Screen
                 name="Done"
                 component={Done}
                 options={{
                     headerShown: false,
+
                     tabBarIcon: ({ color, size }) => (
                         <Image
                             source={require('./assets/done.png')}
@@ -64,15 +66,39 @@ const App = () => {
                         component={Splash}
                         options={{ headerShown: false }}
                     />
+
+
                     <Stack.Screen name="My Tasks" component={HomeTab}
 
-                        options={{ headerShown: true }}
+                        options={{
+                            headerShown: true,
+
+                            headerStyle: {
+                                backgroundColor: '#04c7ad',
+                            },
+                            // headerTintColor: 'orange',
+                            headerTitleStyle: {
+                                fontSize: 25,
+                                fontWeight: '900'
+                            }
+                        }}
 
                     />
 
                     <Stack.Screen name="Task" component={Task}
 
-                        options={{ headerShown: true }}
+                        options={{
+                            headerShown: true,
+
+                            headerStyle: {
+                                backgroundColor: '#04c7ad',
+                            },
+                            // headerTintColor: 'orange',
+                            headerTitleStyle: {
+                                fontSize: 25,
+                                fontWeight: '900'
+                            }
+                        }}
 
                     />
                 </Stack.Navigator>
