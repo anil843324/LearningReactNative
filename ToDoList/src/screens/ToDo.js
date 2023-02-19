@@ -1,11 +1,11 @@
 import { View, Text, StyleSheet, Alert, TouchableOpacity, Image, FlatList } from 'react-native';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { setTaskId, setTasks } from '../redux/actions';
-
+import CheckBox from '@react-native-community/checkbox';
 
 const ToDo = () => {
     const navigation = useNavigation();
@@ -41,6 +41,21 @@ const ToDo = () => {
             })
             .catch(err => console.log(err))
 
+    }
+
+    // check task
+    const checkTask = (id, newValue) => {
+        const index = tasks.findIndex(task => task.ID === id)
+        if (index > -1) {
+            let newTasks = [...tasks];
+            newTasks[index].Done = newValue;
+            AsyncStorage.setItem('Tasks', JSON.stringify(newTasks))
+                .then(() => {
+                    dispatch(setTasks(newTasks))
+                    Alert.alert('Success', 'Task state is changed.')
+                })
+                .catch(err => console.log(err))
+        }
 
     }
 
@@ -48,7 +63,7 @@ const ToDo = () => {
         <View style={styles.body}>
 
             <FlatList
-                data={tasks}
+                data={tasks.filter(task => task.Done === false)}
                 renderItem={({ item }) => (
                     <TouchableOpacity
                         style={styles.item}
@@ -59,7 +74,11 @@ const ToDo = () => {
                         }}
                     >
                         <View style={styles.item_row}>
-
+                            <CheckBox
+                                value={item.Done}
+                                onValueChange={(newValue) => { checkTask(item.ID, newValue) }}
+                                style={styles.checkbox}
+                            />
 
                             <View style={styles.item_body}>
                                 <Text style={styles.title}
@@ -123,6 +142,10 @@ const styles = StyleSheet.create({
     item_row: {
         flexDirection: 'row',
         alignItems: 'center',
+
+    },
+    checkbox: {
+        borderColor: 'green'
 
     },
     item_body: {
