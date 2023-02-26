@@ -3,7 +3,7 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import NewsOverview from '../components/NewsOverview';
+import NewsOverview from '../screens/NewsOverview';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../screens/Home';
 import Saved from '../screens/Saved';
@@ -17,7 +17,7 @@ const HomeScreen = () => {
         name="Home"
         component={Home}
         options={{
-          headerShown: true,
+          headerShown: false,
           tabBarIcon: ({color, size}) => (
             <Image
               source={require('../../icons/home.png')}
