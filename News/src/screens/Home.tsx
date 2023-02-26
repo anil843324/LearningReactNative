@@ -1,14 +1,19 @@
 //@ts-nocheck
 
-import {StyleSheet, Text, View} from 'react-native';
-import React, {useState} from 'react';
+import {StyleSheet, Text, View, FlatList} from 'react-native';
+import React, {useState, useCallback} from 'react';
 import {Appbar, Chip, Button} from 'react-native-paper';
-const categories = ['Technology', 'Sports', 'Politics', 'Health', 'business'];
+const categories = ['Technology', 'Sports', 'Politics', 'Health', 'Business'];
 const API_KEY = 'pub_1787961db0fadd29d70590e4e68625e7c9ec5';
 import {useTheme} from 'react-native-paper';
+import {NewsData} from '../utils/types';
+import CardItem from '../components/CardItem';
 const Home = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
-  const theme = useTheme();
+
+  const [newsData, setNewsData] = useState<NewsData[]>([]);
+  const [nextPage, setNextPage] = useState('');
+
   const handleSelect = (val: String) => {
     setSelectedCategories((prev: string[]) =>
       prev.find(p => p === val)
@@ -17,7 +22,45 @@ const Home = () => {
     );
   };
 
-  const handlePres = async () => {};
+  const handlePres = async () => {
+    const URL = `https://newsdata.io/api/1/news?apikey=${API_KEY}&country=in&language=en${
+      selectedCategories.length > 0
+        ? `&category=${selectedCategories.join(',').toLocaleLowerCase()}`
+        : ''
+    }${nextPage?.length > 0 ? `&page=${nextPage}` : ''} `;
+    try {
+      await fetch(URL)
+        .then(res => res.json())
+        .then(data => {
+          setNewsData(prev => [...prev, ...data.results]);
+          setNextPage(data.nextPage);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // console.log(newsData);
+  const renderItem = useCallback(
+    ({item}) => (
+      <CardItem
+        category={item.category}
+        content={item.content}
+        country={item.country}
+        creator={item.creator}
+        description={item.description}
+        image_url={item.image_url}
+        keywords={item.keywords}
+        language={item.language}
+        link={item.link}
+        pubDate={item.pubDate}
+        source_id={item.source_id}
+        title={item.title}
+        video_url={item.video_url}
+      />
+    ),
+    [],
+  );
 
   return (
     <View style={styles.container}>
@@ -48,6 +91,12 @@ const Home = () => {
           Refresh
         </Button>
       </View>
+      <FlatList
+        onEndReached={() => handlePres()}
+        style={styles.flatList}
+        data={newsData}
+        renderItem={renderItem}
+      />
     </View>
   );
 };
@@ -72,5 +121,9 @@ const styles = StyleSheet.create({
     maxWidth: 400,
     padding: 0,
     maxHeight: 40,
+  },
+  flatList: {
+    flex: 1,
+    height: 'auto',
   },
 });
