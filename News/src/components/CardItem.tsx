@@ -1,11 +1,11 @@
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {Pressable, StyleSheet, Text, View, Alert} from 'react-native';
 import React from 'react';
 import {NewsData} from '../utils/types';
 import {Card, useTheme} from 'react-native-paper';
 const CardItem = (props: NewsData) => {
   const theme = useTheme();
   return (
-    <Pressable>
+    <Pressable onPress={() => }>
       <Card
         style={{
           marginVertical: 10,
