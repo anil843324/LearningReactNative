@@ -2,6 +2,8 @@
 
 A simple cross platform (iOS and Android) React Native TodoList app.
 
+![Demo](./assets/delete.png)
+
 ### Installation
 
 - `git clone https://github.com/anil843324/LearningReactNative/tree/master/ToDoList`
@@ -11,4 +13,5 @@ A simple cross platform (iOS and Android) React Native TodoList app.
 
 - `npx react-native run-ios` or `npx react-native run-android`
 
----
+--- You can download from Google Play Store
+https://play.google.com/store/apps/details?id=com.anitodokrlist
