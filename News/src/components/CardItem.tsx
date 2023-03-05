@@ -5,7 +5,7 @@ import {Card, useTheme} from 'react-native-paper';
 const CardItem = (props: NewsData) => {
   const theme = useTheme();
   return (
-    <Pressable onPress={() => }>
+    <Pressable onPress={() => {}}>
       <Card
         style={{
           marginVertical: 10,
