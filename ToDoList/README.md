@@ -1,6 +1,7 @@
 ## React Native TodoList App
 
 A simple cross platform (iOS and Android) React Native TodoList app.
+
 ![1](https://user-images.githubusercontent.com/86958575/222947655-56af519e-c6a8-41d7-b652-9c5b2a00baf9.jpg)
 
 ![2](https://user-images.githubusercontent.com/86958575/222947671-331185c2-7e01-46d4-a85b-38a608f6e075.jpg)
