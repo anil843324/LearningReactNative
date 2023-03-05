@@ -6,9 +6,9 @@ import {Appbar, Chip, Button} from 'react-native-paper';
 const categories = ['Technology', 'Sports', 'Politics', 'Health', 'Business'];
 const API_KEY = 'pub_1787961db0fadd29d70590e4e68625e7c9ec5';
 import {useTheme} from 'react-native-paper';
-import {NewsData} from '../utils/types';
+import {NewsData, ComponentNavigationProps} from '../utils/types';
 import CardItem from '../components/CardItem';
-const Home = () => {
+const Home = (props: ComponentNavigationProps) => {
   const [selectedCategories, setSelectedCategories] = useState([]);
 
   const [newsData, setNewsData] = useState<NewsData[]>([]);
@@ -44,19 +44,19 @@ const Home = () => {
   const renderItem = useCallback(
     ({item}) => (
       <CardItem
-        category={item.category}
+        // category={item.category}
+        navigation={props.navigation}
         content={item.content}
-        country={item.country}
-        creator={item.creator}
+        // country={item.country}
+        // creator={item.creator}
         description={item.description}
         image_url={item.image_url}
-        keywords={item.keywords}
-        language={item.language}
-        link={item.link}
-        pubDate={item.pubDate}
-        source_id={item.source_id}
+        // keywords={item.keywords}
+        // language={item.language}
+        // link={item.link}
+        // pubDate={item.pubDate}
+        // source_id={item.source_id}
         title={item.title}
-        video_url={item.video_url}
       />
     ),
     [],
